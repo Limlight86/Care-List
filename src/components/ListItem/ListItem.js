@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import styles from "./ListItem.module.css";
 import SwapButton from "../UI/swapButton";
 
@@ -12,5 +13,11 @@ const listItem = props => {
     </div>
   );
 };
+
+listItem.propTypes = {
+  text : PropTypes.string,
+  handleSwap : PropTypes.func,
+  buttonText : PropTypes.string
+}
 
 export default listItem;
