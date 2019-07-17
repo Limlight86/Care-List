@@ -6,7 +6,13 @@ const shoppingList = props => {
   return(
     <div className={styles.list}>
       <h3 className={styles.listTitle}>{props.listName}</h3>
-      <ListItem text="This is a list item"/>
+    {
+      props.list.map((item, i) =>{
+        return(
+          <ListItem text={item.text} key={i} />
+        )
+      })
+    }
     </div>
   )
 }

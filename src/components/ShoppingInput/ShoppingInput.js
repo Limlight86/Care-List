@@ -4,9 +4,9 @@ import styles from "./ShoppingInput.module.css";
 const shoppingInput = props => {
   return (
     <div>
-      <form className={styles.shoppingInput}>
-        <input className={styles.input} />
-        <button className={styles.addButton}>Add to List</button>
+      <form className={styles.shoppingInput} onSubmit={props.addToList}>
+        <input className={styles.input} name="groceryItem"/>
+        <button type='submit' className={styles.addButton}>Add to List</button>
       </form>
     </div>
   );
