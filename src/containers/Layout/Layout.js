@@ -8,17 +8,17 @@ let i = 0;
 
 const alphabetize = (arr) =>{
   arr.sort((a, b) => {
-    if (!a.text || !a.text[0] || !a.text[0] || !b.text || !b.text[0] || !b.text[0]) {
+    if (!a.text || !b.text) {
       return 0;
-    } else if (a.text[0].toLowerCase() < b.text[0].toLowerCase()) {
+    } else if (a.text.toLowerCase() < b.text.toLowerCase()) {
       return -1;
-    } else if (a.text[0].toLowerCase() > b.text[0].toLowerCase()) {
+    } else if (a.text.toLowerCase() > b.text.toLowerCase()) {
       return 1;
     } else {
       return 0;
     }
   })
-  return arr
+  return arr;
 }
 
 class Layout extends Component {
@@ -37,9 +37,9 @@ class Layout extends Component {
       e.target.elements.groceryItem.value = "";
       return;
     } else if (
-      needToBuyList.filter(item => item.text === text).length||
+      needToBuyList.filter(item => item.text === text).length ||
       inCartList.filter(item => item.text === text).length
-    ) {
+      ){
       alert("Item is already in your list.");
       e.target.elements.groceryItem.value = "";
       return;
