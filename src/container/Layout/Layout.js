@@ -15,7 +15,7 @@ class Layout extends Component {
   handleSubmit = e => {
     e.preventDefault();
     let text = e.target.elements.groceryItem.value;
-    let todo = { text: text, id: i };
+    let todo = { text: text, inCart: false, id: i };
     if (!text.trim()) {
       e.target.elements.groceryItem.value = "";
       return;
@@ -26,15 +26,36 @@ class Layout extends Component {
   };
 
   handleSwap = id => {
-    let { needToBuyList } = this.state;
-    let swappedItem = needToBuyList.filter(item => {
-      return item.id === id;
-    });
-
-    needToBuyList = needToBuyList.filter(item => {
-      return item.id !== id;
-    });
-    this.setState({ needToBuyList, inCartList:[...this.state.inCartList, swappedItem[0]] });
+    let { needToBuyList, inCartList } = this.state;
+    let swappedItem;
+    if (needToBuyList.filter(item => item.id === id).length > 0) {
+      swappedItem = needToBuyList.filter(item => {
+        return item.id === id;
+      });
+    } else {
+      swappedItem = inCartList.filter(item => {
+        return item.id === id;
+      });
+    }
+    if (swappedItem[0].inCart) {
+      inCartList = inCartList.filter(item => {
+        return item.id !== id;
+      });
+      swappedItem[0].inCart = false;
+      this.setState({
+        inCartList,
+        needToBuyList: [...this.state.needToBuyList, swappedItem[0]]
+      });
+    } else {
+      needToBuyList = needToBuyList.filter(item => {
+        return item.id !== id;
+      });
+      swappedItem[0].inCart = true;
+      this.setState({
+        needToBuyList,
+        inCartList: [...this.state.inCartList, swappedItem[0]]
+      });
+    }
   };
 
   render() {
