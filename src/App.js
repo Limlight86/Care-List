@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import ShoppingList from "./components/ShoppingList/ShoppingList";
+import ShoppingInput from './components/ShoppingInput/ShoppingInput'
+import Layout from './container/Layout/Layout'
+import ListsBody from "./container/Layout/ListsBody/ListsBody";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Layout>
+        <h1>Care-List</h1>
+        <ShoppingInput />
+        <ListsBody>
+          <ShoppingList listName={"Grocery List"} />
+          <ShoppingList listName={"Shopping Cart"} />
+        </ListsBody>
+      </Layout>
+    );
+  }
 }
 
 export default App;
