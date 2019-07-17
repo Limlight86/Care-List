@@ -1,14 +1,16 @@
-import React from 'react';
-import styles from './ListItem.module.css'
-import SwapButton from '../UI/swapButton'
+import React from "react";
+import styles from "./ListItem.module.css";
+import SwapButton from "../UI/swapButton";
 
 const listItem = props => {
-  return(
+  return (
     <div className={styles.listItem}>
       <span className={styles.text}>{props.text}</span>
-      <span className={styles.swapButton}><SwapButton/></span>
+      <span className={styles.swapButton}>
+        <SwapButton handleSwap={props.handleSwap} buttonText={props.buttonText} />
+      </span>
     </div>
-  )
-}
+  );
+};
 
-export default listItem
+export default listItem;
