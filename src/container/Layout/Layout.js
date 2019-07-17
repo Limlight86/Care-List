@@ -20,7 +20,17 @@ class Layout extends Component {
       e.target.elements.groceryItem.value = "";
       return;
     }
-    this.setState({ needToBuyList: [...this.state.needToBuyList, todo] });
+    this.setState({ needToBuyList: [...this.state.needToBuyList, todo].sort((a,b) => {
+      if (!a.text || !a.text[0] || !a.text[0]|| !b.text || !b.text[0] || !b.text[0]){
+        return 0
+      }else if(a.text[0].toLowerCase() < b.text[0].toLowerCase()){
+        return -1
+      }else if(a.text[0].toLowerCase() > b.text[0].toLowerCase()){
+        return 1
+      }else{
+        return 0
+      }
+    })});
     i++;
     e.target.elements.groceryItem.value = "";
   };
@@ -44,8 +54,17 @@ class Layout extends Component {
       swappedItem[0].inCart = false;
       this.setState({
         inCartList,
-        needToBuyList: [...this.state.needToBuyList, swappedItem[0]]
-      });
+        needToBuyList: [...this.state.needToBuyList, swappedItem[0]].sort((a,b) => {
+          if (!a.text || !a.text[0] || !a.text[0]|| !b.text || !b.text[0] || !b.text[0]){
+            return 0
+          }else if(a.text[0].toLowerCase() < b.text[0].toLowerCase()){
+            return -1
+          }else if(a.text[0].toLowerCase() > b.text[0].toLowerCase()){
+            return 1
+          }else{
+            return 0
+          }
+      })})
     } else {
       needToBuyList = needToBuyList.filter(item => {
         return item.id !== id;
@@ -53,9 +72,18 @@ class Layout extends Component {
       swappedItem[0].inCart = true;
       this.setState({
         needToBuyList,
-        inCartList: [...this.state.inCartList, swappedItem[0]]
-      });
-    }
+        inCartList: [...this.state.inCartList, swappedItem[0]].sort((a,b) => {
+          if (!a.text || !a.text[0] || !a.text[0]|| !b.text || !b.text[0] || !b.text[0]){
+            return 0
+          }else if(a.text[0].toLowerCase() < b.text[0].toLowerCase()){
+            return -1
+          }else if(a.text[0].toLowerCase() > b.text[0].toLowerCase()){
+            return 1
+          }else{
+            return 0
+          }
+      })})
+      };
   };
 
   render() {
@@ -69,11 +97,13 @@ class Layout extends Component {
             listName={"Need to Buy"}
             list={needToBuyList}
             handleSwap={this.handleSwap}
+            buttonText = "Add to Cart"
           />
           <ShoppingList
             listName={"In My Cart"}
             list={inCartList}
             handleSwap={this.handleSwap}
+            buttonText = "Remove from Cart"
           />
         </ListsBody>
       </div>

@@ -7,7 +7,7 @@ const listItem = props => {
     <div className={styles.listItem}>
       <span className={styles.text}>{props.text}</span>
       <span className={styles.swapButton}>
-        <SwapButton handleSwap={props.handleSwap} />
+        <SwapButton handleSwap={props.handleSwap} buttonText={props.buttonText} />
       </span>
     </div>
   );
