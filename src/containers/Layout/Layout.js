@@ -16,14 +16,14 @@ class Layout extends Component {
     e.preventDefault();
     let { needToBuyList, inCartList } = this.state;
     let text = e.target.elements.groceryItem.value;
-    let todo = { text: text, inCart: false, id: i };
+    let todo = { text, inCart: false, id: i };
     if (!text.trim()) {
       alert("Please specify an item to add.");
       e.target.elements.groceryItem.value = "";
       return;
     } else if (
-      needToBuyList.filter(item => item.text === text).length > 0 ||
-      inCartList.filter(item => item.text === text).length > 0
+      needToBuyList.filter(item => item.text === text).length||
+      inCartList.filter(item => item.text === text).length
     ) {
       alert("Item is already in your list.");
       e.target.elements.groceryItem.value = "";
@@ -50,7 +50,7 @@ class Layout extends Component {
   handleSwap = id => {
     let { needToBuyList, inCartList } = this.state;
     let swappedItem;
-    if (needToBuyList.filter(item => item.id === id).length > 0) {
+    if (needToBuyList.filter(item => item.id === id).length) {
       swappedItem = needToBuyList.filter(item => {
         return item.id === id;
       });

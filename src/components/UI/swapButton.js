@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./swapButton.module.css";
 
-const swapButton = props => {
-  return(
-    <button className={styles.swapButton} onClick={props.handleSwap}>{props.buttonText}</button>
-  )
-}
+const swapButton = ({ handleSwap, buttonText }) => (
+  <button className={styles.swapButton} onClick={handleSwap}>
+    {buttonText}
+  </button>
+);
 
-export default swapButton
+export default swapButton;
