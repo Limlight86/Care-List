@@ -3,7 +3,7 @@ import styles from "./swapButton.module.css";
 
 const swapButton = props => {
   return(
-    <button className={styles.swapButton}>Add to Other List</button>
+    <button className={styles.swapButton} onClick={props.handleSwap}>Add to Other List</button>
   )
 }
 
