@@ -29,9 +29,9 @@ class Layout extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    let { needToBuyList, inCartList } = this.state;
-    let text = e.target.elements.groceryItem.value;
-    let todo = { text, inCart: false, id: i };
+    const { needToBuyList, inCartList } = this.state;
+    const text = e.target.elements.groceryItem.value;
+    const todo = { text, inCart: false, id: i };
     if (!text.trim()) {
       alert("Please specify an item to add.");
       e.target.elements.groceryItem.value = "";
