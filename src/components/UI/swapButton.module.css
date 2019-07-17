@@ -1,6 +1,17 @@
-.swapButton{
+.swapButton {
   color: white;
   border-radius: 32px;
   background-color: #009bde;
   border: 2px solid #009bde;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.swapButton:focus {
+  outline: none;
+}
+
+.swapButton:hover {
+  opacity: 1;
 }
