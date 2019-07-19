@@ -28,6 +28,7 @@ shoppingList.propTypes = {
   text: PropTypes.string,
   key: PropTypes.number,
   buttonText: PropTypes.string,
+  id: PropTypes.number
 };
 
 export default shoppingList;
