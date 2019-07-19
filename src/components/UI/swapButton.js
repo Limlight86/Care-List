@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./swapButton.module.css";
+import styles from "./SwapButton.module.css";
 import AuthContext from '../../context/auth-context'
 
 const swapButton = ({ buttonText, id }) => (
