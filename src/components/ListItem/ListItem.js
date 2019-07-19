@@ -14,7 +14,6 @@ const listItem = ({ text, buttonText, id }) => (
 
 listItem.propTypes = {
   text: PropTypes.string,
-  handleSwap: PropTypes.func,
   buttonText: PropTypes.string
 };
 

@@ -83,12 +83,10 @@ class Layout extends Component {
             <ShoppingList
               listName="Need to Buy"
               list={needToBuyList}
-              buttonText="Add to Cart"
             />
             <ShoppingList
               listName="In My Cart"
               list={inCartList}
-              buttonText="Remove from Cart"
             />
           </ListsBody>
         </AuthContext.Provider>
