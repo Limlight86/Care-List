@@ -46,7 +46,7 @@ class Layout extends Component {
     }
 
     this.setState({
-      needToBuyList: alphabetize([...this.state.needToBuyList, todo])
+      needToBuyList: alphabetize([...needToBuyList, todo])
     });
     i++;
     e.target.elements.groceryItem.value = "";
@@ -71,7 +71,7 @@ class Layout extends Component {
       swappedItem[0].inCart = false;
       this.setState({
         inCartList,
-        needToBuyList: alphabetize([...this.state.needToBuyList, swappedItem[0]])
+        needToBuyList: alphabetize([...needToBuyList, swappedItem[0]])
       });
     } else {
       needToBuyList = needToBuyList.filter(item => {
@@ -80,7 +80,7 @@ class Layout extends Component {
       swappedItem[0].inCart = true;
       this.setState({
         needToBuyList,
-        inCartList: alphabetize([...this.state.inCartList, swappedItem[0]])
+        inCartList: alphabetize([...inCartList, swappedItem[0]])
       });
     }
   };
