@@ -1,12 +1,11 @@
 import React, { Component } from "react";
+import uuidv4 from "uuid/v4";
 import ShoppingList from "../../components/ShoppingList/ShoppingList";
 import ShoppingInput from "../../components/ShoppingInput/ShoppingInput";
 import ListsBody from "../ListsBody/ListsBody";
 import styles from "./Layout.module.css";
-import AuthContext from '../../context/auth-context'
-import alphabetize from '../../misc/Alphabetize'
-
-let i = 0;
+import AuthContext from "../../context/auth-context";
+import alphabetize from "../../misc/Alphabetize";
 
 class Layout extends Component {
   state = {
@@ -18,58 +17,35 @@ class Layout extends Component {
     e.preventDefault();
     const { needToBuyList, inCartList } = this.state;
     const text = e.target.elements.groceryItem.value;
-    const todo = { text, inCart: false, id: i };
+    const item = { text, inCart: false, id: uuidv4() };
     if (!text.trim()) {
       alert("Please specify an item to add.");
       e.target.elements.groceryItem.value = "";
       return;
     } else if (
-      needToBuyList.filter(item => item.text === text).length ||
-      inCartList.filter(item => item.text === text).length
-      ){
+      needToBuyList.some(item => item.text.toLowerCase() === text.toLowerCase()) ||
+      inCartList.some(item => item.text.toLowerCase() === text.toLowerCase())
+    ) {
       alert("Item is already in your list.");
       e.target.elements.groceryItem.value = "";
       return;
     }
-
-    this.setState({
-      needToBuyList: alphabetize([...needToBuyList, todo])
-    });
-    i++;
+    this.setState({ needToBuyList: alphabetize([...needToBuyList, item])});
     e.target.elements.groceryItem.value = "";
   };
 
   handleSwap = id => {
     let { needToBuyList, inCartList } = this.state;
-    let swappedItem;
-    if (needToBuyList.filter(item => item.id === id).length) {
-      swappedItem = needToBuyList.filter(item => {
-        return item.id === id;
-      });
+    let swapped = [...needToBuyList, ...inCartList].find(i => i.id === id);
+    swapped.inCart = !swapped.inCart;
+    if (swapped.inCart) {
+      needToBuyList = needToBuyList.filter(i => i.id !== id);
+      inCartList = alphabetize([...inCartList, swapped]);
     } else {
-      swappedItem = inCartList.filter(item => {
-        return item.id === id;
-      });
+      inCartList = inCartList.filter(i => i.id !== id);
+      needToBuyList = alphabetize([...needToBuyList, swapped]);
     }
-    if (swappedItem[0].inCart) {
-      inCartList = inCartList.filter(item => {
-        return item.id !== id;
-      });
-      swappedItem[0].inCart = false;
-      this.setState({
-        inCartList,
-        needToBuyList: alphabetize([...needToBuyList, swappedItem[0]])
-      });
-    } else {
-      needToBuyList = needToBuyList.filter(item => {
-        return item.id !== id;
-      });
-      swappedItem[0].inCart = true;
-      this.setState({
-        needToBuyList,
-        inCartList: alphabetize([...inCartList, swappedItem[0]])
-      });
-    }
+    this.setState({ inCartList, needToBuyList });
   };
 
   render() {
@@ -78,16 +54,10 @@ class Layout extends Component {
       <div className={styles.layout}>
         <h1>Care-List</h1>
         <ShoppingInput addToList={this.handleSubmit} />
-        <AuthContext.Provider value={ {handleSwap : this.handleSwap} }>
+        <AuthContext.Provider value={{ handleSwap: this.handleSwap }}>
           <ListsBody>
-            <ShoppingList
-              listName="Need to Buy"
-              list={needToBuyList}
-            />
-            <ShoppingList
-              listName="In My Cart"
-              list={inCartList}
-            />
+            <ShoppingList listName="Need to Buy" list={needToBuyList} />
+            <ShoppingList listName="In My Cart" list={inCartList} />
           </ListsBody>
         </AuthContext.Provider>
       </div>
