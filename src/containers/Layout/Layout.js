@@ -3,23 +3,9 @@ import ShoppingList from "../../components/ShoppingList/ShoppingList";
 import ShoppingInput from "../../components/ShoppingInput/ShoppingInput";
 import ListsBody from "../ListsBody/ListsBody";
 import styles from "./Layout.module.css";
+import alphabetize from '../../misc/Alphabetize'
 
 let i = 0;
-
-const alphabetize = (arr) =>{
-  arr.sort((a, b) => {
-    if (!a.text || !b.text) {
-      return 0;
-    } else if (a.text.toLowerCase() < b.text.toLowerCase()) {
-      return -1;
-    } else if (a.text.toLowerCase() > b.text.toLowerCase()) {
-      return 1;
-    } else {
-      return 0;
-    }
-  })
-  return arr;
-}
 
 class Layout extends Component {
   state = {
@@ -93,13 +79,13 @@ class Layout extends Component {
         <ShoppingInput addToList={this.handleSubmit} />
         <ListsBody>
           <ShoppingList
-            listName={"Need to Buy"}
+            listName="Need to Buy"
             list={needToBuyList}
             handleSwap={this.handleSwap}
             buttonText="Add to Cart"
           />
           <ShoppingList
-            listName={"In My Cart"}
+            listName="In My Cart"
             list={inCartList}
             handleSwap={this.handleSwap}
             buttonText="Remove from Cart"
