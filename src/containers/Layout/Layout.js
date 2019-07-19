@@ -3,23 +3,10 @@ import ShoppingList from "../../components/ShoppingList/ShoppingList";
 import ShoppingInput from "../../components/ShoppingInput/ShoppingInput";
 import ListsBody from "../ListsBody/ListsBody";
 import styles from "./Layout.module.css";
+import AuthContext from '../../context/auth-context'
+import alphabetize from '../../misc/Alphabetize'
 
 let i = 0;
-
-const alphabetize = (arr) =>{
-  arr.sort((a, b) => {
-    if (!a.text || !b.text) {
-      return 0;
-    } else if (a.text.toLowerCase() < b.text.toLowerCase()) {
-      return -1;
-    } else if (a.text.toLowerCase() > b.text.toLowerCase()) {
-      return 1;
-    } else {
-      return 0;
-    }
-  })
-  return arr;
-}
 
 class Layout extends Component {
   state = {
@@ -46,7 +33,7 @@ class Layout extends Component {
     }
 
     this.setState({
-      needToBuyList: alphabetize([...this.state.needToBuyList, todo])
+      needToBuyList: alphabetize([...needToBuyList, todo])
     });
     i++;
     e.target.elements.groceryItem.value = "";
@@ -71,7 +58,7 @@ class Layout extends Component {
       swappedItem[0].inCart = false;
       this.setState({
         inCartList,
-        needToBuyList: alphabetize([...this.state.needToBuyList, swappedItem[0]])
+        needToBuyList: alphabetize([...needToBuyList, swappedItem[0]])
       });
     } else {
       needToBuyList = needToBuyList.filter(item => {
@@ -80,7 +67,7 @@ class Layout extends Component {
       swappedItem[0].inCart = true;
       this.setState({
         needToBuyList,
-        inCartList: alphabetize([...this.state.inCartList, swappedItem[0]])
+        inCartList: alphabetize([...inCartList, swappedItem[0]])
       });
     }
   };
@@ -91,20 +78,18 @@ class Layout extends Component {
       <div className={styles.layout}>
         <h1>Care-List</h1>
         <ShoppingInput addToList={this.handleSubmit} />
-        <ListsBody>
-          <ShoppingList
-            listName={"Need to Buy"}
-            list={needToBuyList}
-            handleSwap={this.handleSwap}
-            buttonText="Add to Cart"
-          />
-          <ShoppingList
-            listName={"In My Cart"}
-            list={inCartList}
-            handleSwap={this.handleSwap}
-            buttonText="Remove from Cart"
-          />
-        </ListsBody>
+        <AuthContext.Provider value={ {handleSwap : this.handleSwap} }>
+          <ListsBody>
+            <ShoppingList
+              listName="Need to Buy"
+              list={needToBuyList}
+            />
+            <ShoppingList
+              listName="In My Cart"
+              list={inCartList}
+            />
+          </ListsBody>
+        </AuthContext.Provider>
       </div>
     );
   }
