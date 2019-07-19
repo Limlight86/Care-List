@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styles from "./ShoppingList.module.css";
 import ListItem from "../ListItem/ListItem";
 
-const shoppingList = ({ listName, list, buttonText, handleSwap }) => (
+const shoppingList = ({ listName, list, buttonText, handleSwap, placeHolderText }) => (
   <div className={styles.list}>
     <h3 className={styles.listTitle}>{listName}</h3>
     {list.map((item, i) => {

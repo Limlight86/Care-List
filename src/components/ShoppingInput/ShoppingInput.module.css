@@ -23,12 +23,13 @@
   line-height: 2;
   border-radius: 32px;
   margin-bottom: 16px;
-  border: 2px solid #dfe1e5;
+  border: 1px solid black;
   font-family: 'Raleway', sans-serif;
   padding: 0 12px;
   font-weight: bold;
   text-align: center;
   color: black;
+  font-size: 16px;
 }
 
 .addButton:hover {
