@@ -15,7 +15,7 @@ const listItem = ({ text, buttonText, id }) => (
 listItem.propTypes = {
   text: PropTypes.string,
   buttonText: PropTypes.string,
-  id : PropTypes.number
+  id : PropTypes.string
 };
 
 export default listItem;
