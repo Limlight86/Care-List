@@ -3,6 +3,7 @@ import ShoppingList from "../../components/ShoppingList/ShoppingList";
 import ShoppingInput from "../../components/ShoppingInput/ShoppingInput";
 import ListsBody from "../ListsBody/ListsBody";
 import styles from "./Layout.module.css";
+import AuthContext from '../../context/auth-context'
 import alphabetize from '../../misc/Alphabetize'
 
 let i = 0;
@@ -39,6 +40,7 @@ class Layout extends Component {
   };
 
   handleSwap = id => {
+    debugger
     let { needToBuyList, inCartList } = this.state;
     let swappedItem;
     if (needToBuyList.filter(item => item.id === id).length) {
@@ -77,20 +79,20 @@ class Layout extends Component {
       <div className={styles.layout}>
         <h1>Care-List</h1>
         <ShoppingInput addToList={this.handleSubmit} />
-        <ListsBody>
-          <ShoppingList
-            listName="Need to Buy"
-            list={needToBuyList}
-            handleSwap={this.handleSwap}
-            buttonText="Add to Cart"
-          />
-          <ShoppingList
-            listName="In My Cart"
-            list={inCartList}
-            handleSwap={this.handleSwap}
-            buttonText="Remove from Cart"
-          />
-        </ListsBody>
+        <AuthContext.Provider value={ {handleSwap : this.handleSwap} }>
+          <ListsBody>
+            <ShoppingList
+              listName="Need to Buy"
+              list={needToBuyList}
+              buttonText="Add to Cart"
+            />
+            <ShoppingList
+              listName="In My Cart"
+              list={inCartList}
+              buttonText="Remove from Cart"
+            />
+          </ListsBody>
+        </AuthContext.Provider>
       </div>
     );
   }
