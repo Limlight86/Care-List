@@ -2,12 +2,12 @@ import React from "react";
 import styles from "./swapButton.module.css";
 import AuthContext from '../../context/auth-context'
 
-const swapButton = ({ buttonText }) => (
+const swapButton = ({ buttonText, id }) => (
   <AuthContext.Consumer>
     {(context) =>
-      <button className={styles.swapButton} onClick={context.handleSwap}>
-      {buttonText}
-    </button>
+      <button className={styles.swapButton} onClick={() => context.handleSwap(id)}>
+        {buttonText}
+      </button>
     }
   </AuthContext.Consumer>
 );

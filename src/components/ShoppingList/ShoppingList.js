@@ -3,16 +3,16 @@ import PropTypes from "prop-types";
 import styles from "./ShoppingList.module.css";
 import ListItem from "../ListItem/ListItem";
 
-const shoppingList = ({ listName, list, buttonText, handleSwap, placeHolderText }) => (
+const shoppingList = ({ listName, list, buttonText}) => (
   <div className={styles.list}>
     <h3 className={styles.listTitle}>{listName}</h3>
-    {list.map((item, i) => {
+    {list.map((item) => {
       return (
         <ListItem
           text={item.text}
-          key={i}
+          key={item.id}
           buttonText={buttonText}
-          handleSwap={() => handleSwap(item.id)}
+          id={item.id}
         />
       );
     })}

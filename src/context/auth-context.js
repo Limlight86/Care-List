@@ -4,4 +4,4 @@ const authContext = React.createContext({
   handleSwap : () => {}
 });
 
-export default authContext
+export default authContext;

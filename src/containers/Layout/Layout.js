@@ -40,7 +40,6 @@ class Layout extends Component {
   };
 
   handleSwap = id => {
-    debugger
     let { needToBuyList, inCartList } = this.state;
     let swappedItem;
     if (needToBuyList.filter(item => item.id === id).length) {
