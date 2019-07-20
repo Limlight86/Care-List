@@ -13,12 +13,15 @@ class Layout extends Component {
   state = {
     needToBuyList: [],
     inCartList: [],
-    express: ''
   };
 
   async componentDidMount(){
-    let { data } = await axios.get(`api/`);
-    this.setState({ express : data });
+    let { data } = await axios.get(`/api`);
+    this.setState({ needToBuyList: data });
+  }
+
+  addGroceryList = (item) =>{
+    axios.post('/api', item)
   }
 
   handleSubmit = e => {
@@ -39,6 +42,7 @@ class Layout extends Component {
       return;
     }
     this.setState({ needToBuyList: alphabetize([...needToBuyList, item])});
+    this.addGroceryList(item)
     e.target.elements.groceryItem.value = "";
   };
 
