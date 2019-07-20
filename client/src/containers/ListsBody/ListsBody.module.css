@@ -1,0 +1,7 @@
+.listsBody {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  margin-top: 32px;
+  width: 80%;
+}
