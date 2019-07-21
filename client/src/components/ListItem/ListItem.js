@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./ListItem.module.css";
-import SwapButton from "../UI/SwapButton";
-import DeleteButton from '../UI/DeleteButton.js'
+import SwapButton from "../UI/SwapButton/SwapButton";
+import DeleteButton from "../UI/DeleteButton/DeleteButton";
 
 const listItem = ({ text, buttonText, id }) => (
   <div className={styles.listItem}>
