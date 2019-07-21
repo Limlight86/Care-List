@@ -6,6 +6,7 @@ import ListsBody from "../ListsBody/ListsBody";
 import styles from "./Layout.module.css";
 import AuthContext from "../../context/auth-context";
 import alphabetize from "../../util/Alphabetize";
+import inputValidation from "../../util/InputValidation";
 
 const axios = require("axios");
 
@@ -30,17 +31,8 @@ class Layout extends Component {
     const { needToBuyList, inCartList } = this.state;
     const text = e.target.elements.groceryItem.value;
     const item = { text, inCart: false, id: uuidv4() };
-    if (!text.trim()) {
-      alert("Please specify an item to add.");
-      e.target.elements.groceryItem.value = "";
-      return;
-    } else if (
-      needToBuyList.some(item => item.text.toLowerCase() === text.toLowerCase()) ||
-      inCartList.some(item => item.text.toLowerCase() === text.toLowerCase())
-    ) {
-      alert("Item is already in your list.");
-      e.target.elements.groceryItem.value = "";
-      return;
+    if (!inputValidation(e, this.state)){
+      return
     }
     const added = { needToBuyList: alphabetize([...needToBuyList, item]),inCartList};
     this.setState(added);
