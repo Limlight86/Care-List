@@ -5,31 +5,25 @@ import ShoppingInput from "../../components/ShoppingInput/ShoppingInput";
 import ListsBody from "../ListsBody/ListsBody";
 import styles from "./Layout.module.css";
 import AuthContext from "../../context/auth-context";
-import alphabetize from "../../misc/Alphabetize";
+import alphabetize from "../../util/Alphabetize";
 
-const axios = require('axios');
+const axios = require("axios");
 
 class Layout extends Component {
   state = {
     needToBuyList: [],
-    inCartList: [],
+    inCartList: []
   };
 
-  async componentDidMount(){
+  async componentDidMount() {
     let { data } = await axios.get(`/api`);
-    let {needToBuyList, inCartList} = data
-    console.log(data)
-    this.setState({ needToBuyList, inCartList });
+    let { needToBuyList, inCartList } = data;
+    this.setState({ needToBuyList: alphabetize(needToBuyList), inCartList: alphabetize(inCartList) });
   }
 
-  addGroceryList = (item) =>{
-    axios.post('/api', item)
-    .then((res)=>{
-      let {needToBuyList, inCartList} = res.data
-      console.log(needToBuyList, inCartList, "<><><><>><><>")
-      this.setState({needToBuyList, inCartList})
-    }) 
-  }
+  addGroceryList = item => {
+    axios.post("/api", item);
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -48,8 +42,9 @@ class Layout extends Component {
       e.target.elements.groceryItem.value = "";
       return;
     }
-    this.setState({ needToBuyList: alphabetize([...needToBuyList, item])});
-    this.addGroceryList(item)
+    const added = { needToBuyList: alphabetize([...needToBuyList, item]),inCartList};
+    this.setState(added);
+    this.addGroceryList(added);
     e.target.elements.groceryItem.value = "";
   };
 
@@ -64,9 +59,9 @@ class Layout extends Component {
       inCartList = inCartList.filter(i => i.id !== id);
       needToBuyList = alphabetize([...needToBuyList, swapped]);
     }
-    console.log(swapped)
-    this.addGroceryList(swapped)
-    this.setState({ inCartList, needToBuyList });
+    const added = { inCartList, needToBuyList };
+    this.setState(added);
+    this.addGroceryList(added);
   };
 
   render() {
