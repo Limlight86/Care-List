@@ -17,13 +17,13 @@ class Layout extends Component {
   };
 
   async componentDidMount() {
-    let { data } = await axios.get(`/api`);
-    let { needToBuyList, inCartList } = data;
+    const { data } = await axios.get(`/api`);
+    const { needToBuyList, inCartList } = data;
     this.setState({ needToBuyList: alphabetize(needToBuyList), inCartList: alphabetize(inCartList) });
   }
 
-  addGroceryList = item => {
-    axios.post("/api", item);
+  addGroceryList = async item => {
+    await axios.post("/api", item);
   };
 
   handleSubmit = e => {
@@ -42,7 +42,7 @@ class Layout extends Component {
 
   handleSwap = id => {
     let { needToBuyList, inCartList } = this.state;
-    let swapped = [...needToBuyList, ...inCartList].find(i => i.id === id);
+    const swapped = [...needToBuyList, ...inCartList].find(i => i.id === id);
     swapped.inCart = !swapped.inCart;
     if (swapped.inCart) {
       needToBuyList = needToBuyList.filter(i => i.id !== id);
@@ -50,10 +50,25 @@ class Layout extends Component {
     } else {
       inCartList = inCartList.filter(i => i.id !== id);
       needToBuyList = alphabetize([...needToBuyList, swapped]);
-    }
+    };
     const added = { inCartList, needToBuyList };
     this.setState(added);
     this.addGroceryList(added);
+  };
+
+  handleDelete = id => {
+    if(window.confirm("Delete this Item?")){
+      let { needToBuyList, inCartList } = this.state;
+      const deleted = [...needToBuyList, ...inCartList].find(i => i.id === id);
+      if (deleted.inCart){
+        inCartList = inCartList.filter(i => i.id !== deleted.id);
+      } else {
+        needToBuyList = needToBuyList.filter( i => i.id !== deleted.id);
+      };
+      const added = { inCartList, needToBuyList };
+      this.setState(added);
+      this.addGroceryList(added);
+    }
   };
 
   render() {
@@ -62,7 +77,7 @@ class Layout extends Component {
       <div className={styles.layout}>
         <h1>Care-List</h1>
         <ShoppingInput addToList={this.handleSubmit} />
-        <AuthContext.Provider value={{ handleSwap: this.handleSwap }}>
+        <AuthContext.Provider value={{ handleSwap: this.handleSwap, handleDelete : this.handleDelete }}>
           <ListsBody>
             <ShoppingList listName="Need to Buy" list={needToBuyList} />
             <ShoppingList listName="In My Cart" list={inCartList} />

@@ -36,6 +36,6 @@
   opacity: 1;
 }
 
-.input:focus {
-  outline: none;
+.input:focus, .addButton:focus {
+  outline: none
 }
