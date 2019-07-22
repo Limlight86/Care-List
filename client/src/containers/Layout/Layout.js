@@ -43,19 +43,15 @@ class Layout extends Component {
   };
 
   handleSwap = id => {
-    let { needToBuyList, inCartList } = this.state;
+    const { needToBuyList, inCartList } = this.state;
     const swapped = [...needToBuyList, ...inCartList].find(i => i.id === id);
-    swapped.inCart = !swapped.inCart;
-    if (swapped.inCart) {
-      needToBuyList = needToBuyList.filter(i => i.id !== id);
-      inCartList = alphabetize([...inCartList, swapped]);
-    } else {
-      inCartList = inCartList.filter(i => i.id !== id);
-      needToBuyList = alphabetize([...needToBuyList, swapped]);
-    };
-    const added = { inCartList, needToBuyList };
-    this.setState(added);
-    this.addGroceryList(added);
+    const updatedItem = { ...swapped, inCart : !swapped.inCart};
+    const [listToFilter, listToAppend] = swapped.inCart ? ['inCartList', 'needToBuyList'] : ['needToBuyList', 'inCartList'];
+    const filteredList = this.state[listToFilter].filter(i => i.id !== id);
+    const appendedList = alphabetize([...this.state[listToAppend], updatedItem]);
+    const changed = { [listToFilter]: filteredList, [listToAppend]: appendedList };
+    this.addGroceryList(changed);
+    this.setState(changed);
   };
 
   handleDelete = id => {
@@ -67,10 +63,10 @@ class Layout extends Component {
       } else {
         needToBuyList = needToBuyList.filter( i => i.id !== deleted.id);
       };
-      const added = { inCartList, needToBuyList };
-      this.setState(added);
-      this.addGroceryList(added);
-    }
+      const changed = { inCartList, needToBuyList };
+      this.setState(changed);
+      this.addGroceryList(changed);
+    };
   };
 
   render() {
