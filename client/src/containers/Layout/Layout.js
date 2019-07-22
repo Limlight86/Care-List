@@ -28,18 +28,18 @@ class Layout extends Component {
     await axios.post("/api", item);
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e, input, setInput) => {
     e.preventDefault();
     const { needToBuyList, inCartList } = this.state;
-    const text = e.target.elements.groceryItem.value;
+    const text = input
     const item = { text, inCart: false, id: uuidv4() };
-    if (!inputValidation(e, this.state)){
+    if (!inputValidation(input, setInput, this.state)){
       return
     }
     const added = { needToBuyList: alphabetize([...needToBuyList, item]),inCartList};
     this.setState(added);
     this.addGroceryList(added);
-    e.target.elements.groceryItem.value = "";
+    setInput("")
   };
 
   handleSwap = id => {
