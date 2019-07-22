@@ -8,11 +8,11 @@ const shoppingList = ({ listName, list}) => {
   return(
     <div className={styles.list}>
     <h3 className={styles.listTitle}>{listName}</h3>
-    {list.map((item, i) => {
+    {list.map(item => {
       return (
         <ListItem
           text={item.text}
-          key={i}
+          key={item.id}
           buttonText={buttonText}
           id={item.id}
         />
