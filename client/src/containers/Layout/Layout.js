@@ -14,7 +14,11 @@ class Layout extends Component {
     inCartList: []
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchLists()
+  }
+
+  fetchLists = async () => {
     const { data } = await axios.get(`/api`);
     const { needToBuyList, inCartList } = data;
     this.setState({ needToBuyList: alphabetize(needToBuyList), inCartList: alphabetize(inCartList) });
@@ -86,4 +90,5 @@ class Layout extends Component {
     );
   }
 }
+
 export default Layout;
