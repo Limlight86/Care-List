@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./ShoppingList.module.css";
-import ListItem from "../ListItem/ListItem";
+import { ListItem } from '../../components';
 
 const shoppingList = ({ listName, list}) => {
   let buttonText = listName === "Need to Buy" ? "Add to Cart" : "Remove from Cart"

@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import uuidv4 from "uuid/v4";
-import ShoppingList from "../../components/ShoppingList/ShoppingList";
-import ShoppingInput from "../../components/ShoppingInput/ShoppingInput";
-import ListsBody from "../ListsBody/ListsBody";
+import { ShoppingInput, ShoppingList } from '../../components'
+import { ListsBody } from '../../containers'
 import styles from "./Layout.module.css";
 import AuthContext from "../../context/auth-context";
-import alphabetize from "../../util/Alphabetize";
-import inputValidation from "../../util/InputValidation";
+import { alphabetize, inputValidation } from '../../util'
 
 const axios = require("axios");
 
