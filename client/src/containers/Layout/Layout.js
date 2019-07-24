@@ -37,8 +37,7 @@ class Layout extends Component {
       return
     }
     const added = { needToBuyList: alphabetize([...needToBuyList, item]),inCartList};
-    this.setState(added);
-    this.addGroceryList(added);
+    this.setState(added, () => this.addGroceryList(this.state));
     setInput("")
   };
 
@@ -50,8 +49,7 @@ class Layout extends Component {
     const filteredList = this.state[listToFilter].filter(i => i.id !== id);
     const appendedList = alphabetize([...this.state[listToAppend], updatedItem]);
     const changed = { [listToFilter]: filteredList, [listToAppend]: appendedList };
-    this.addGroceryList(changed);
-    this.setState(changed);
+    this.setState(changed, () => this.addGroceryList(this.state));
   };
 
   handleDelete = id => {
@@ -64,8 +62,7 @@ class Layout extends Component {
         needToBuyList = needToBuyList.filter( i => i.id !== deleted.id);
       };
       const changed = { inCartList, needToBuyList };
-      this.setState(changed);
-      this.addGroceryList(changed);
+      this.setState(changed, () => this.addGroceryList(this.state));
     };
   };
 
@@ -84,7 +81,7 @@ class Layout extends Component {
         <h1>{this.state.express}</h1>
       </div>
     );
-  }
+  };
 }
 
 export default Layout;

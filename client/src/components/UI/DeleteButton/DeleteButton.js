@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./DeleteButton.module.css";
-import AuthContext from '../../../context/auth-context'
+import AuthContext from '../../../context/auth-context';
 
 const deleteButton = ({ id }) => (
   <AuthContext.Consumer>
