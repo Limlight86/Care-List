@@ -78,7 +78,6 @@ class Layout extends Component {
             <ShoppingList listName="In My Cart" list={inCartList} />
           </ListsBody>
         </AuthContext.Provider>
-        <h1>{this.state.express}</h1>
       </div>
     );
   };
